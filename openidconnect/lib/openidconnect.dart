@@ -147,11 +147,9 @@ class OpenIdConnect {
       "grant_type": "authorization_code",
       "code_verifier": request.codeVerifier,
       "code": authCode,
+      if (request.clientSecret != null) "client_secret": request.clientSecret!,
+      if (state != null && state.isNotEmpty) "state": state
     };
-
-    if (request.clientSecret != null) body.addAll({"client_secret": request.clientSecret!});
-
-    if (state != null && state.isNotEmpty) body.addAll({"state": state});
 
     final response = await httpRetry(
       () => http.post(
@@ -160,7 +158,7 @@ class OpenIdConnect {
       ),
     );
 
-    if (response == null) if (response == null) throw UnsupportedError('The response was null.');
+    if (response == null) throw UnsupportedError('The response was null.');
 
     return AuthorizationResponse.fromJson(response);
   }
@@ -179,9 +177,9 @@ class OpenIdConnect {
 
     await launchUrl(
       Uri.parse(codeResponse.verificationUrlComplete).replace(
-        queryParameters:
-            // ignore: unnecessary_cast
-            {"user_code": codeResponse.userCode} as Map<String, dynamic>,
+        queryParameters: <String, dynamic>{
+          "user_code": codeResponse.userCode,
+        },
       ),
       webViewConfiguration: WebViewConfiguration(
         enableJavaScript: true,
@@ -193,9 +191,8 @@ class OpenIdConnect {
       "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
       "device_code": codeResponse.deviceCode,
       "client_id": request.clientId,
+      if (request.clientSecret != null) "client_secret": request.clientSecret!,
     };
-
-    if (request.clientSecret != null) pollingBody = {"client_secret": request.clientSecret!, ...pollingBody};
 
     late AuthorizationResponse authorizationResponse;
 

@@ -18,14 +18,11 @@ class DeviceAuthorizationRequest {
   });
 
   Map<String, dynamic> toMap() {
-    var map = {
+    return <String, dynamic>{
       "client_id": clientId,
       "scope": scopes.join(" "),
+      if (audience != null) "audience": audience!,
+      if (clientSecret != null) "client_secret": clientSecret!,
     };
-
-    if (audience != null) map = {"audience": audience!, ...map};
-    if (clientSecret != null) map = {"client_secret": clientSecret!, ...map};
-
-    return map;
   }
 }
