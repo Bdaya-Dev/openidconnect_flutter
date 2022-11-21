@@ -39,8 +39,7 @@ class _InteractivePageState extends State<InteractivePage> {
                 initialValue: discoveryUrl,
                 onChanged: (value) => discoveryUrl = value,
                 validator: (value) {
-                  const errorMessage =
-                      "Please enter a valid openid discovery document url";
+                  const errorMessage = "Please enter a valid openid discovery document url";
                   if (value == null || value.isEmpty) return errorMessage;
                   try {
                     Uri.parse(value);
@@ -57,8 +56,7 @@ class _InteractivePageState extends State<InteractivePage> {
                   if (!_formKey.currentState!.validate()) return;
 
                   try {
-                    final configuration =
-                        await OpenIdConnect.getConfiguration(discoveryUrl);
+                    final configuration = await OpenIdConnect.getConfiguration(discoveryUrl);
                     setState(() {
                       discoveryDocument = configuration;
                       errorMessage = null;
@@ -100,6 +98,7 @@ class _InteractivePageState extends State<InteractivePage> {
                           configuration: discoveryDocument!,
                           autoRefresh: false,
                           useWebPopup: usePopup,
+                          prompts: ['login', 'consent'],
                         ),
                       );
                       setState(() {
@@ -133,6 +132,7 @@ class _InteractivePageState extends State<InteractivePage> {
                       request: LogoutRequest(
                         idToken: identity!.idToken,
                         configuration: discoveryDocument!,
+                        postLogoutRedirectUrl: 'http://localhost:4200',
                       ),
                     );
                     setState(() {
