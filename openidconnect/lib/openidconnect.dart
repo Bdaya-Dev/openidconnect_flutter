@@ -309,7 +309,9 @@ class OpenIdConnect {
       final response = await httpRetry(
         () => http.get(
           Uri.parse(request.configuration.userInfoEndpoint),
-          headers: {"Authorization": "${request.tokenType} ${request.accessToken}"},
+          headers: {
+            "Authorization": "${request.tokenType} ${request.accessToken}",
+          },
         ),
       );
 
