@@ -1,3 +1,7 @@
+## [1.0.26] - November 22nd, 2022
+
+- Private repo
+
 # [1.0.25] - November 16th, 2022
 
 - Revert platform indicator as it was causing problems with windows

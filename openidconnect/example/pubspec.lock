@@ -204,21 +204,21 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.25"
+    version: "1.0.26"
   openidconnect_platform_interface:
     dependency: transitive
     description:
       name: openidconnect_platform_interface
-      url: "https://pub.dartlang.org"
+      url: "https://onepub.dev/api/snssdavuhn/"
     source: hosted
-    version: "1.0.13"
+    version: "1.0.14"
   openidconnect_web:
     dependency: transitive
     description:
       name: openidconnect_web
-      url: "https://pub.dartlang.org"
+      url: "https://onepub.dev/api/snssdavuhn/"
     source: hosted
-    version: "1.0.21"
+    version: "1.0.22"
   path:
     dependency: transitive
     description:

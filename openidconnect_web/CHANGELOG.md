@@ -1,3 +1,7 @@
+## [1.0.22] - November 22nd, 2022
+
+- Private repo
+
 ## [1.0.21] - November 10th, 2022
 
 - Update dependencies
