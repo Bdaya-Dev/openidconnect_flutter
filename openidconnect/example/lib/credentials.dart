@@ -1,13 +1,6 @@
-final defaultDiscoveryUrl =
-    "https://yourdomain.com/.well-known/openid-configuration";
-final defaultClientId = "Admin";
-final String? defaultClientSecret = "setme";
-final String? defaultAudience = "api";
-final defaultRedirectUrl = "http://localhost:50335/callback.html";
-final defaultscopes = [
-  "openid",
-  "profile",
-  "email",
-  "address",
-  "offline_access"
-];
+final defaultDiscoveryUrl = "https://localhost:43301/.well-known/openid-configuration";
+final defaultClientId = "Digrum_App";
+final String? defaultClientSecret = null;
+final String? defaultAudience = "Digrum";
+final defaultRedirectUrl = "http://localhost:4200/callback.html";
+final defaultscopes = ["openid", "profile", "email", "phone", "roles", "address", "offline_access", "Digrum"];

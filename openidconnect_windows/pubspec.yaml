@@ -1,7 +1,8 @@
 name: openidconnect_windows
 description: Windows implementation for OpenIdConnect.
 version: 0.0.6
-homepage: https://github.com/Concerti-IO/openidconnect_flutter/tree/main/openidconnect_windows
+publish_to: https://onepub.dev/api/snssdavuhn/
+homepage: https://github.com/Bdaya-dev/openidconnect_flutter/tree/main/openidconnect_windows
 
 environment:
   sdk: ">=2.15.0 <3.0.0"

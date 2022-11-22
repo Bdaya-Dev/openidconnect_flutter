@@ -16,7 +16,6 @@ class _InteractivePageState extends State<InteractivePage> {
   String discoveryUrl = defaultDiscoveryUrl;
   OpenIdConfiguration? discoveryDocument;
   AuthorizationResponse? identity;
-  OpenIdIdentity? parsedIdentity;
   bool usePopup = true;
 
   String? errorMessage = null;
@@ -100,13 +99,12 @@ class _InteractivePageState extends State<InteractivePage> {
                           configuration: discoveryDocument!,
                           autoRefresh: false,
                           useWebPopup: usePopup,
-                          // prompts: ['login', 'consent'],
+                          prompts: ['login'],
                         ),
                       );
                       final newIdentity = response == null ? null : OpenIdIdentity.fromAuthorizationResponse(response);
                       setState(() {
-                        identity = response;
-                        parsedIdentity = newIdentity;
+                        identity = newIdentity ?? response;
                         errorMessage = null;
                       });
                     } on Exception catch (e) {
@@ -122,8 +120,8 @@ class _InteractivePageState extends State<InteractivePage> {
                 visible: discoveryDocument != null,
               ),
               Visibility(
-                child: parsedIdentity == null && identity == null ? Container() : IdentityView(parsedIdentity ?? identity!),
-                visible: identity != null || parsedIdentity != null,
+                child: identity == null ? Container() : IdentityView(identity!),
+                visible: identity != null,
               ),
               // Visibility(
               //   child: parsedIdentity == null ? Container() : IdentityView(parsedIdentity!),
