@@ -16,6 +16,7 @@ class _InteractivePageState extends State<InteractivePage> {
   String discoveryUrl = defaultDiscoveryUrl;
   OpenIdConfiguration? discoveryDocument;
   AuthorizationResponse? identity;
+  OpenIdIdentity? parsedIdentity;
   bool usePopup = true;
 
   String? errorMessage = null;
@@ -31,6 +32,7 @@ class _InteractivePageState extends State<InteractivePage> {
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextFormField(
                 textInputAction: TextInputAction.done,
@@ -98,11 +100,13 @@ class _InteractivePageState extends State<InteractivePage> {
                           configuration: discoveryDocument!,
                           autoRefresh: false,
                           useWebPopup: usePopup,
-                          prompts: ['login', 'consent'],
+                          // prompts: ['login', 'consent'],
                         ),
                       );
+                      final newIdentity = response == null ? null : OpenIdIdentity.fromAuthorizationResponse(response);
                       setState(() {
                         identity = response;
+                        parsedIdentity = newIdentity;
                         errorMessage = null;
                       });
                     } on Exception catch (e) {
@@ -118,9 +122,13 @@ class _InteractivePageState extends State<InteractivePage> {
                 visible: discoveryDocument != null,
               ),
               Visibility(
-                child: identity == null ? Container() : IdentityView(identity!),
-                visible: identity != null,
+                child: parsedIdentity == null && identity == null ? Container() : IdentityView(parsedIdentity ?? identity!),
+                visible: identity != null || parsedIdentity != null,
               ),
+              // Visibility(
+              //   child: parsedIdentity == null ? Container() : IdentityView(parsedIdentity!),
+              //   visible: identity != null,
+              // ),
               Visibility(
                 child: SelectableText(errorMessage ?? ""),
                 visible: errorMessage != null,
