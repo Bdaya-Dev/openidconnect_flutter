@@ -1,7 +1,9 @@
+library openidconnect_windows;
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:openidconnect_platform_interface/openidconnect_platform_interface.dart';
+import 'package:bdaya_openidconnect_platform_interface/openidconnect_platform_interface.dart';
 import 'package:webview_windows/webview_windows.dart';
 
 class OpenIdConnectWindows extends OpenIdConnectPlatform {

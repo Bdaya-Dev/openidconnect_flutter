@@ -1,8 +1,7 @@
-name: openidconnect_windows
+name: bdaya_openidconnect_windows
 description: Windows implementation for OpenIdConnect.
-version: 0.0.7
-publish_to: https://onepub.dev/api/snssdavuhn/
-homepage: https://gitlab.com/bdaya-dev/packages/openidconnect/-/tree/main/openidconnect_windows
+version: 0.0.1
+homepage: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect_windows
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
@@ -11,9 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  openidconnect_platform_interface: 
-    hosted: https://onepub.dev/api/snssdavuhn/
-    version: ^1.0.11
+  bdaya_openidconnect_platform_interface: ^1.0.2
   webview_windows: ^0.1.0
 
 dev_dependencies:
@@ -23,7 +20,7 @@ dev_dependencies:
 
 flutter:
   plugin:
-    implements: openidconnect
+    implements: bdaya_openidconnect
     platforms:
       windows:
         dartPluginClass: OpenIdConnectWindows
