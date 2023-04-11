@@ -1,8 +1,7 @@
-name: openidconnect_web
+name: bdaya_openidconnect_web
 description: Web implementation for OpenIdConnect.
-version: 1.0.22
-publish_to: https://onepub.dev/api/snssdavuhn/
-homepage: https://gitlab.com/bdaya-dev/packages/openidconnect/-/tree/main/openidconnect_web
+version: 1.0.0
+homepage: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect_web
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -13,9 +12,7 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  openidconnect_platform_interface:
-    hosted: https://onepub.dev/api/snssdavuhn/    
-    version: ^1.0.14
+  bdaya_openidconnect_platform_interface: ^1.0.2
 dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
@@ -31,7 +28,7 @@ flutter:
   # be modified. They are used by the tooling to maintain consistency when
   # adding or updating assets for this project.
   plugin:
-    implements: openidconnect      
+    implements: bdaya_openidconnect      
     platforms:
       web:
         pluginClass: OpenIdConnectWeb
