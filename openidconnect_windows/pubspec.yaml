@@ -1,7 +1,8 @@
 name: bdaya_openidconnect_windows
 description: Windows implementation for OpenIdConnect.
 version: 0.0.1
-homepage: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect_windows
+homepage: https://github.com/Bdaya-Dev/openidconnect_flutter
+repository: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect_windows
 
 environment:
   sdk: ">=2.15.0 <3.0.0"

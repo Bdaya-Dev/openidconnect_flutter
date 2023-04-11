@@ -1,11 +1,9 @@
-part of openidconnect;
-
 enum AuthEventTypes { Error, Success, Logout, NotLoggedIn, Refresh }
 
-@immutable
 class AuthEvent {
   final AuthEventTypes type;
   final String? message;
+
   const AuthEvent(this.type, {this.message});
 
   @override

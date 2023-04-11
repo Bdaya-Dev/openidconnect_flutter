@@ -1,4 +1,4 @@
-part of openidconnect;
+import 'package:bdaya_openidconnect/src/config/openidconfiguration.dart';
 
 class LogoutRequest {
   final String idToken;
@@ -16,7 +16,8 @@ class LogoutRequest {
   Map<String, String> toMap() {
     return {
       "id_token_hint": idToken,
-      if (postLogoutRedirectUrl != null) "post_logout_redirect_url": postLogoutRedirectUrl!,
+      if (postLogoutRedirectUrl != null)
+        "post_logout_redirect_url": postLogoutRedirectUrl!,
       if (state != null) "state": state!
     };
   }

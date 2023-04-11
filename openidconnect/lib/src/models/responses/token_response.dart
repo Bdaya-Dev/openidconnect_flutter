@@ -1,5 +1,3 @@
-part of openidconnect;
-
 class TokenResponse {
   final String tokenType;
   final Map<String, dynamic>? additionalProperties;

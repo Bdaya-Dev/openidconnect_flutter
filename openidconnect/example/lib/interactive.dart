@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:openidconnect/openidconnect.dart';
+import 'package:bdaya_openidconnect/openidconnect.dart';
 import 'credentials.dart';
 
 import 'identity_view.dart';
@@ -40,7 +40,8 @@ class _InteractivePageState extends State<InteractivePage> {
                 initialValue: discoveryUrl,
                 onChanged: (value) => discoveryUrl = value,
                 validator: (value) {
-                  const errorMessage = "Please enter a valid openid discovery document url";
+                  const errorMessage =
+                      "Please enter a valid openid discovery document url";
                   if (value == null || value.isEmpty) return errorMessage;
                   try {
                     Uri.parse(value);
@@ -57,7 +58,8 @@ class _InteractivePageState extends State<InteractivePage> {
                   if (!_formKey.currentState!.validate()) return;
 
                   try {
-                    final configuration = await OpenIdConnect.getConfiguration(discoveryUrl);
+                    final configuration =
+                        await OpenIdConnect.getConfiguration(discoveryUrl);
                     setState(() {
                       discoveryDocument = configuration;
                       errorMessage = null;
@@ -102,7 +104,9 @@ class _InteractivePageState extends State<InteractivePage> {
                           prompts: ['login'],
                         ),
                       );
-                      final newIdentity = response == null ? null : OpenIdIdentity.fromAuthorizationResponse(response);
+                      final newIdentity = response == null
+                          ? null
+                          : OpenIdIdentity.fromAuthorizationResponse(response);
                       setState(() {
                         identity = newIdentity ?? response;
                         errorMessage = null;

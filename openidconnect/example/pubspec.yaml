@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  openidconnect:
+  bdaya_openidconnect:
     path: ../
 
   cupertino_icons: ^1.0.5

@@ -1,4 +1,4 @@
-part of openidconnect;
+import 'package:bdaya_openidconnect/src/config/openidconfiguration.dart';
 
 class DeviceAuthorizationRequest {
   final OpenIdConfiguration configuration;

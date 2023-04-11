@@ -15,7 +15,7 @@ class MethodChannelOpenIdConnect extends OpenIdConnectPlatform {
     bool useWebRedirectLoop = false,
   }) =>
       _channel.invokeMethod<String>('authorizeInteractive', {
-        "title": "title",
+        "title": title,
         "authorizationUrl": authorizationUrl,
         "redirectUrl": redirectUrl,
         "popupWidth": popupWidth,

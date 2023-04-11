@@ -1,4 +1,8 @@
-part of openidconnect;
+import 'dart:async';
+
+import 'package:bdaya_openidconnect/openidconnect.dart';
+import 'package:bdaya_openidconnect_platform_interface/openidconnect_platform_interface.dart';
+import 'package:flutter/material.dart';
 
 class OpenIdConnectClient {
   static const OFFLINE_ACCESS_SCOPE = "offline_access";
@@ -19,9 +23,9 @@ class OpenIdConnectClient {
   final List<String> scopes;
   final List<String>? audiences;
 
-  OpenIdConfiguration? configuration = null;
-  Future<bool>? _autoRenewTimer = null;
-  OpenIdIdentity? _identity = null;
+  OpenIdConfiguration? configuration;
+  Future<bool>? _autoRenewTimer;
+  OpenIdIdentity? _identity;
   bool _refreshing = false;
   bool _isInitializationComplete = false;
 
@@ -38,7 +42,6 @@ class OpenIdConnectClient {
     this.audiences,
   });
 
-  @mustCallSuper
   static Future<OpenIdConnectClient> create({
     required String discoveryDocumentUrl,
     required String clientId,

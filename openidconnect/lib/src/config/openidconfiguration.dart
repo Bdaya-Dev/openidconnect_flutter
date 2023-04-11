@@ -1,5 +1,3 @@
-part of openidconnect;
-
 class OpenIdConfiguration {
   final String issuer;
   final String jwksUri;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openidconnect/openidconnect.dart';
+import 'package:bdaya_openidconnect/openidconnect.dart';
 
 import 'identity_view.dart';
 import 'credentials.dart';

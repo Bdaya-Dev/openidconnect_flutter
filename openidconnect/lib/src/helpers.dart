@@ -1,4 +1,10 @@
-part of openidconnect;
+import 'dart:async';
+import 'dart:convert';
+//import 'dart:io';
+
+import 'package:bdaya_openidconnect_platform_interface/openidconnect_platform_interface.dart';
+import 'package:http/http.dart' as http;
+import 'package:retry/retry.dart';
 
 Future<Map<String, dynamic>?> httpRetry<T extends http.Response>(
   FutureOr<T> Function() fn, {
@@ -18,11 +24,20 @@ Future<Map<String, dynamic>?> httpRetry<T extends http.Response>(
       maxAttempts: maxAttempts,
     );
 
-    var result = await options.retry(fn, retryIf: retryIf ?? (e) => e is IOException || e is TimeoutException, onRetry: onRetry);
+    var result = await options.retry(
+      fn,
+      retryIf:
+          retryIf ?? (e) => e is http.ClientException || e is TimeoutException,
+      onRetry: onRetry,
+    );
 
-    if (result.statusCode == 503 || result.statusCode == 502 || result.statusCode == 504) {
+    if (result.statusCode == 503 ||
+        result.statusCode == 502 ||
+        result.statusCode == 504) {
       if (attempt >= maxAttempts) {
-        throw HttpException("The server could not be reached. Please try again later.");
+        throw http.ClientException(
+          "The server could not be reached. Please try again later.",
+        );
       }
       await Future<void>.delayed(options.delay(attempt));
       attempt++;
@@ -41,10 +56,13 @@ Future<Map<String, dynamic>?> httpRetry<T extends http.Response>(
     if (result.statusCode < 200 || result.statusCode >= 300) {
       if (jsonResponse!["error"] != null) {
         var error = jsonResponse["error"].toString();
-        if (jsonResponse["error_description"] != null) error += ": ${jsonResponse["error_description"]}";
-        throw HttpResponseException(ERROR_MESSAGE_FORMAT.replaceAll("%2", error));
+        if (jsonResponse["error_description"] != null)
+          error += ": ${jsonResponse["error_description"]}";
+        throw HttpResponseException(
+            ERROR_MESSAGE_FORMAT.replaceAll("%2", error));
       } else {
-        throw HttpResponseException(ERROR_MESSAGE_FORMAT.replaceAll("%2", "unknown_error"));
+        throw HttpResponseException(
+            ERROR_MESSAGE_FORMAT.replaceAll("%2", "unknown_error"));
       }
     }
 
@@ -70,11 +88,20 @@ Future<void> httpRetryNoResponse<T extends http.Response>(
       maxAttempts: maxAttempts,
     );
 
-    var result = await options.retry(fn, retryIf: retryIf ?? (e) => e is IOException || e is TimeoutException, onRetry: onRetry);
+    var result = await options.retry(
+      fn,
+      retryIf:
+          retryIf ?? (e) => e is http.ClientException || e is TimeoutException,
+      onRetry: onRetry,
+    );
 
-    if (result.statusCode == 503 || result.statusCode == 502 || result.statusCode == 504) {
+    if (result.statusCode == 503 ||
+        result.statusCode == 502 ||
+        result.statusCode == 504) {
       if (attempt >= maxAttempts) {
-        throw HttpException("The server could not be reached. Please try again later.");
+        throw http.ClientException(
+          "The server could not be reached. Please try again later.",
+        );
       }
       await Future<void>.delayed(options.delay(attempt));
       attempt++;
@@ -85,9 +112,11 @@ Future<void> httpRetryNoResponse<T extends http.Response>(
     if (result.statusCode < 200 || result.statusCode >= 300) {
       result.body;
       if (body.isNotEmpty) {
-        throw HttpResponseException(ERROR_MESSAGE_FORMAT.replaceAll("%2", body));
+        throw HttpResponseException(
+            ERROR_MESSAGE_FORMAT.replaceAll("%2", body));
       } else {
-        throw HttpResponseException(ERROR_MESSAGE_FORMAT.replaceAll("%2", "unknown_error"));
+        throw HttpResponseException(
+            ERROR_MESSAGE_FORMAT.replaceAll("%2", "unknown_error"));
       }
     }
   }

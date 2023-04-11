@@ -1,4 +1,4 @@
-part of openidconnect;
+import 'package:bdaya_openidconnect/src/config/openidconfiguration.dart';
 
 enum TokenType { idToken, accessToken }
 

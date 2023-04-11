@@ -1,4 +1,4 @@
-part of openidconnect;
+import 'token_response.dart';
 
 class AuthorizationResponse extends TokenResponse {
   final String accessToken;

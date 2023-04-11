@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openidconnect/openidconnect.dart';
+import 'package:bdaya_openidconnect/openidconnect.dart';
 
 class IdentityView extends StatelessWidget {
   final AuthorizationResponse identity;
@@ -8,7 +8,8 @@ class IdentityView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parsed = identity is OpenIdIdentity ? identity as OpenIdIdentity : null;
+    final parsed =
+        identity is OpenIdIdentity ? identity as OpenIdIdentity : null;
     return Padding(
       padding: EdgeInsets.all(15),
       child: SingleChildScrollView(
@@ -71,7 +72,9 @@ class IdentityView extends StatelessWidget {
               ),
               IdentityRow(
                 title: "claims:",
-                content: parsed.claims.entries.map((e) => '${e.key}=${e.value}').join(';'),
+                content: parsed.claims.entries
+                    .map((e) => '${e.key}=${e.value}')
+                    .join(';'),
               ),
               IdentityRow(
                 title: "roles:",
@@ -91,7 +94,7 @@ class IdentityRow extends StatelessWidget {
   final String? content;
   @override
   Widget build(BuildContext context) {
-    final captionTheme = Theme.of(context).textTheme.caption;
+    final captionTheme = Theme.of(context).textTheme.bodySmall;
     return Row(
       children: [
         Text(
@@ -100,7 +103,9 @@ class IdentityRow extends StatelessWidget {
           style: captionTheme,
         ),
         IconButton(
-          onPressed: content == null ? null : () => Clipboard.setData(ClipboardData(text: content)),
+          onPressed: content == null
+              ? null
+              : () => Clipboard.setData(ClipboardData(text: content)),
           icon: Icon(Icons.copy),
         ),
         SelectableText(

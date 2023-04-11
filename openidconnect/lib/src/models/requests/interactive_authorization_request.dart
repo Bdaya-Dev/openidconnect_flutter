@@ -1,7 +1,12 @@
-part of openidconnect;
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:bdaya_openidconnect/openidconnect.dart';
+import 'package:cryptography/cryptography.dart' as crypto;
 
 class InteractiveAuthorizationRequest extends TokenRequest {
-  static const String _charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  static const String _charset =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
 
   final int popupWidth;
   final int popupHeight;
@@ -31,13 +36,16 @@ class InteractiveAuthorizationRequest extends TokenRequest {
     int popupHeight = 600,
     bool useWebPopup = true,
   }) async {
-    final codeVerifier = List.generate(128, (i) => _charset[Random.secure().nextInt(_charset.length)]).join();
+    final codeVerifier = List.generate(
+        128, (i) => _charset[Random.secure().nextInt(_charset.length)]).join();
 
     final sha256 = crypto.Sha256();
 
-    final codeChallenge = base64Url.encode((await sha256.hash(ascii.encode(codeVerifier))).bytes).replaceAll('=', '');
+    final codeChallenge = base64Url
+        .encode((await sha256.hash(ascii.encode(codeVerifier))).bytes)
+        .replaceAll('=', '');
 
-    return InteractiveAuthorizationRequest._(
+    return InteractiveAuthorizationRequest(
       clientId: clientId,
       redirectUrl: redirectUrl,
       scopes: scopes,
@@ -55,7 +63,7 @@ class InteractiveAuthorizationRequest extends TokenRequest {
     );
   }
 
-  InteractiveAuthorizationRequest._({
+  InteractiveAuthorizationRequest({
     required String clientId,
     String? clientSecret,
     required this.redirectUrl,

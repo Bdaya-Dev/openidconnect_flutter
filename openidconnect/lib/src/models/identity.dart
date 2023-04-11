@@ -1,4 +1,7 @@
-part of openidconnect;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+
+import 'responses/authorization_response.dart';
 
 class OpenIdIdentity extends AuthorizationResponse {
   static const String _AUTHENTICATION_TOKEN_KEY = "ACCESS_TOKEN";
@@ -32,7 +35,8 @@ class OpenIdIdentity extends AuthorizationResponse {
   }
 
   factory OpenIdIdentity.fromAuthorizationResponse(
-          AuthorizationResponse response) =>
+    AuthorizationResponse response,
+  ) =>
       OpenIdIdentity(
         accessToken: response.accessToken,
         expiresAt: response.expiresAt,
@@ -97,20 +101,28 @@ class OpenIdIdentity extends AuthorizationResponse {
 
   Future<void> save() async {
     await _storage.write(
-        key: _AUTHENTICATION_TOKEN_KEY, value: this.accessToken);
+      key: _AUTHENTICATION_TOKEN_KEY,
+      value: this.accessToken,
+    );
 
-    await _storage.write(key: _ID_TOKEN_KEY, value: this.idToken);
-    await this.refreshToken == null
-        ? _storage.delete(key: _REFRESH_TOKEN_KEY)
-        : _storage.write(key: _REFRESH_TOKEN_KEY, value: this.refreshToken);
+    await _storage.write(
+      key: _ID_TOKEN_KEY,
+      value: this.idToken,
+    );
+    if (this.refreshToken == null)
+      await _storage.delete(key: _REFRESH_TOKEN_KEY);
+    else
+      await _storage.write(key: _REFRESH_TOKEN_KEY, value: this.refreshToken);
 
     await _storage.write(key: _TOKEN_TYPE_KEY, value: this.tokenType);
     await _storage.write(
-        key: _EXPIRES_ON_KEY,
-        value: this.expiresAt.millisecondsSinceEpoch.toString());
-    await this.state == null
-        ? _storage.delete(key: _STATE_KEY)
-        : _storage.write(key: _STATE_KEY, value: this.state);
+      key: _EXPIRES_ON_KEY,
+      value: this.expiresAt.millisecondsSinceEpoch.toString(),
+    );
+    if (this.state == null)
+      await _storage.delete(key: _STATE_KEY);
+    else
+      _storage.write(key: _STATE_KEY, value: this.state);
   }
 
   static Future<void> clear() async {
@@ -128,7 +140,7 @@ class OpenIdIdentity extends AuthorizationResponse {
   String? get givenName => claims["given_name"]?.toString();
   String? get fullName =>
       claims["name"]?.toString() ??
-      (givenName == null ? familyName : "${givenName} ${familyName}");
+      (givenName == null ? familyName : "$givenName $familyName");
   String? get userName =>
       claims["preferred_username"]?.toString() ?? claims["sub"]?.toString();
   String? get email => claims["email"]?.toString();

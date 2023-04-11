@@ -1,17 +1,19 @@
 name: bdaya_openidconnect_platform_interface
 version: 1.0.2
-homepage: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect_platform_interface
+homepage: https://github.com/Bdaya-Dev/openidconnect_flutter
 description: Platform interface for OpenIdConnect.
-environment: 
-  sdk: '>=2.18.0 <3.0.0'
-  flutter: '>=2.8.0'
-dependencies: 
+repository: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect_platform_interface
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: ">=2.8.0"
+dependencies:
   plugin_platform_interface: ^2.1.4
-  flutter: 
+  flutter:
     sdk: flutter
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.1
   mockito: ^5.3.2
-  flutter_test: 
+  flutter_test:
     sdk: flutter
   test: ^1.22.0

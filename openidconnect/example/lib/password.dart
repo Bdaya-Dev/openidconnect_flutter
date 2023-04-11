@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openidconnect/openidconnect.dart';
+import 'package:bdaya_openidconnect/openidconnect.dart';
 
 import 'identity_view.dart';
 import 'credentials.dart';
@@ -144,11 +144,12 @@ class _PasswordPageState extends State<PasswordPage> {
                       label: Text("Login"),
                     ),
                     Visibility(
-                      child: Text(errorMessage ?? "",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: Theme.of(context).errorColor)),
+                      child: Text(
+                        errorMessage ?? "",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                      ),
                       visible: errorMessage != null,
                     ),
                   ],

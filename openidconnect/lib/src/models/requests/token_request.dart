@@ -1,4 +1,5 @@
-part of openidconnect;
+import 'package:bdaya_openidconnect/src/config/openidconfiguration.dart';
+import 'package:flutter/widgets.dart';
 
 abstract class TokenRequest {
   final String clientId;

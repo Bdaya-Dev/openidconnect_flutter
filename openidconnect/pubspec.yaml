@@ -1,8 +1,8 @@
-name: openidconnect
-description: OpenIdConnect library for flutter.
-version: 1.0.26
-publish_to: https://onepub.dev/api/snssdavuhn/
-homepage: https://gitlab.com/bdaya-dev/packages/openidconnect/-/tree/main/openidconnect
+name: bdaya_openidconnect
+description: OpenIdConnect library for flutter, it supports interactive authorization and token refresh/persistance.
+version: 1.0.0
+homepage: https://github.com/Bdaya-Dev/openidconnect_flutter
+repository: https://github.com/Bdaya-Dev/openidconnect_flutter/tree/main/openidconnect
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -13,16 +13,10 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  openidconnect_platform_interface: 
-    hosted: https://onepub.dev/api/snssdavuhn/
-    version: ^1.0.14
-  openidconnect_web: 
-    hosted: https://onepub.dev/api/snssdavuhn/
-    version: ^1.0.22
-  # openidconnect_windows: 
-  #   hosted: https://onepub.dev/api/snssdavuhn/
-  #   version: ^0.0.7
-  flutter_secure_storage: ^6.0.0
+  bdaya_openidconnect_platform_interface: ^1.0.2
+  bdaya_openidconnect_web: ^1.0.0
+  bdaya_openidconnect_windows: ^0.0.1
+  flutter_secure_storage: ^8.0.0
   jwt_decoder: ^2.0.1
 
   cryptography: ^2.0.5
@@ -32,8 +26,8 @@ dependencies:
   retry: ^3.1.0
 
   # TODO Remove these once native implementations can be added. Refactor so that the native implementations don't need to do the full cycle through.
-  webview_flutter: ^3.0.4
-
+  webview_flutter: ^4.0.7
+  async: ^2.10.0
 dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
@@ -47,7 +41,13 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
+      ios:
+        dartPluginClass: OpenIdConnectAndroidiOS
+        fileName: src/android_ios.dart
+      android:
+        dartPluginClass: OpenIdConnectAndroidiOS
+        fileName: src/android_ios.dart
       web:
-        default_package: openidconnect_web
-      # windows:
-      #   default_package: openidconnect_windows
+        default_package: bdaya_openidconnect_web
+      windows:
+        default_package: bdaya_openidconnect_windows
